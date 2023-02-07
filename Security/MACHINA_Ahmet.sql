@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [MACHINA\Ahmet]
+    FROM WINDOWS;
+

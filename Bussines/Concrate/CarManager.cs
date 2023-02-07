@@ -20,27 +20,43 @@ namespace Bussines.Concrate
 
         public void Add(Car car)
         {
-            throw new NotImplementedException();
+            if (car.Name.Length<2)
+            {
+                new InvalidOperationException("Araç ismi minimum 2 karakter olmalıdır");
+            }
+            else
+            {
+                _carDal.Add(car);
+            }
         }
 
         public void Delete(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(car);
         }
 
         public List<Car> GetAll()
         {
-            return _carDal.GetAll();
+            return _carDal.GetAll(c=>c.BrandId==7);
         }
 
-        public List<Car> GetById(int id)
+        public Car GetById(int id)
         {
-            throw new NotImplementedException();
+           return _carDal.Get(b=>b.Id==id);
+
+            
         }
 
         public void Update(Car car)
         {
-            throw new NotImplementedException();
+            if (car.Name.Length < 2)
+            {
+                new InvalidOperationException("Araç ismi minimum 2 karakter olmalıdır");
+            }
+            else
+            {
+                _carDal.Update(car);
+            }
         }
     }
 }
