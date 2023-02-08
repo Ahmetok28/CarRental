@@ -1,6 +1,7 @@
 ﻿using Bussines.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,11 @@ namespace Bussines.Concrate
            return _carDal.Get(b=>b.Id==id);
 
             
+        }
+
+        public List<CarDetailDto> GetCarDetail()
+        {
+            return _carDal.GetCarDetail();
         }
 
         public void Update(Car car)

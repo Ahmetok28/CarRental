@@ -15,8 +15,8 @@ namespace DataAccess.Concrate.EntityFramework
             optionsBuilder.UseSqlServer(@"Server=MACHINA;Database=ReCapProject;Trusted_Connection=true;TrustServerCertificate=True");
         }
 
-        DbSet<Car> Cars { get; set; }
-        DbSet<Brand> Brands { get; set; }
-        DbSet<Color> Colors { get; set; }
+       public DbSet<Car> Cars { get; set; }
+       public  DbSet<Brand> Brands { get; set; }
+       public DbSet<Color> Colors { get; set; }
     }
 }

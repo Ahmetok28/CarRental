@@ -8,11 +8,11 @@ CarManager carManager = new CarManager(new CarDal());
 BrandManager brandManager = new BrandManager(new BrandDal());
 
 
-Console.WriteLine(carManager.GetById(1).Name);
+
 Console.WriteLine("---------------------------");
-foreach (var item in brandManager.GetAll())
+foreach (var item in carManager.GetCarDetail())
 {
-    Console.WriteLine(item.BrandName);
+    Console.WriteLine(item.BrandName +" "+item.Name + " " +item.ColorName+" "+item.DailyPrice);
 }
 Console.WriteLine("---------------------------");
 
