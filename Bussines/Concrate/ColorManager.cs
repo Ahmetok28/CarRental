@@ -1,4 +1,6 @@
 ﻿using Bussines.Abstract;
+using Bussines.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using System;
@@ -18,44 +20,44 @@ namespace Bussines.Concrate
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
             if (color.ColorName.Length < 2)
             {
-                new InvalidOperationException("Renk ismi 2 karkterden büyük olmalı");
+                return new ErrorResult(Messages.InvalidName);
             }
-            else
-            {
-                _colorDal.Add(color);
-            }
+            
+            _colorDal.Add(color);
+            return new SuccessResult(Messages.SuccesfullyAdded);
+            
 
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
+            return new SuccessResult(Messages.SuccesfullyDeleted);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccesDataResult<List<Color>>( _colorDal.GetAll());
         }
 
-        public Color GetById(int id)
+        public IDataResult<Color> GetById(int id)
         {
-            return _colorDal.Get(c=>c.Id == id);
+            return new SuccesDataResult<Color>( _colorDal.Get(c=>c.Id == id));
         }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
             if (color.ColorName.Length < 2)
             {
-                new InvalidOperationException("Renk ismi 2 karkterden büyük olmalı");
+                return new ErrorResult(Messages.InvalidName);
             }
-            else
-            {
-                _colorDal.Update(color);
-            }
+           
+            _colorDal.Update(color);
+            return new SuccessResult(Messages.SuccesfullyUpdated);
         }
     }
 }

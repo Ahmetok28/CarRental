@@ -1,4 +1,6 @@
 ﻿using Bussines.Abstract;
+using Bussines.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrate.EntityFramework;
 using Entities.Concrate;
@@ -20,44 +22,45 @@ namespace Bussines.Concrate
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length < 2)
             {
-                new InvalidOperationException("Marka ismi 2 karkterden büyük olmalı");
+                return new ErrorResult(Messages.InvalidName);
             }
-            else
-            {
-                _brandDal.Add(brand);
-            }
+            
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.SuccesfullyAdded);
+
+
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult(Messages.SuccesfullyDeleted);
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccesDataResult<List<Brand>>( _brandDal.GetAll());
         }
 
-        public Brand GetById(int id)
+        public IDataResult<Brand> GetById(int id)
         {
             
-            return _brandDal.Get(b=>b.Id == id);
+            return new SuccesDataResult<Brand> (_brandDal.Get(b=>b.Id == id));
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             if (brand.BrandName.Length < 2)
             {
-                new InvalidOperationException("Marka ismi 2 karkterden büyük olmalı");
+                return new ErrorResult(Messages.InvalidName);
             }
-            else
-            {
-                _brandDal.Update(brand);
-            }
+            
+            _brandDal.Update(brand);
+            return new SuccessResult(Messages.SuccesfullyUpdated);
         }
     }
 }

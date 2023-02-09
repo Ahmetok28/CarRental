@@ -1,4 +1,6 @@
 ﻿using Bussines.Abstract;
+using Bussines.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Entities.DTOs;
@@ -19,50 +21,51 @@ namespace Bussines.Concrate
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.Name.Length<2)
             {
-                new InvalidOperationException("Araç ismi minimum 2 karakter olmalıdır");
+                return new ErrorResult(Messages.InvalidName);
             }
-            else
-            {
-                _carDal.Add(car);
-            }
+            
+            _carDal.Add(car);
+            return new SuccessResult(Messages.SuccesfullyAdded);
+            
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Messages.SuccesfullyDeleted);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll(c=>c.BrandId==7);
+            return new SuccesDataResult<List<Car>>( _carDal.GetAll(c=>c.BrandId==7));
         }
 
-        public Car GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
-           return _carDal.Get(b=>b.Id==id);
+           return new SuccesDataResult<Car>( _carDal.Get(b=>b.Id==id));
 
             
         }
 
-        public List<CarDetailDto> GetCarDetail()
-        {
-            return _carDal.GetCarDetail();
+        public IDataResult<List<CarDetailDto>> GetCarDetail()
+        {            
+            return new SuccesDataResult<List<CarDetailDto>>( _carDal.GetCarDetail());
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             if (car.Name.Length < 2)
             {
-                new InvalidOperationException("Araç ismi minimum 2 karakter olmalıdır");
+              return new ErrorResult(Messages.InvalidName);
             }
-            else
-            {
-                _carDal.Update(car);
-            }
+            
+            _carDal.Update(car);
+            return new SuccessResult(Messages.SuccesfullyUpdated);
+            
         }
     }
 }

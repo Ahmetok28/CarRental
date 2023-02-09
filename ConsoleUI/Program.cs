@@ -10,10 +10,19 @@ BrandManager brandManager = new BrandManager(new BrandDal());
 
 
 Console.WriteLine("---------------------------");
-foreach (var item in carManager.GetCarDetail())
+var result = carManager.GetCarDetail();
+if (result.IsSuccess)
 {
-    Console.WriteLine(item.BrandName +" "+item.Name + " " +item.ColorName+" "+item.DailyPrice);
+    foreach (var item in result.Data)
+    {
+        Console.WriteLine(item.BrandName + " " + item.Name + " " + item.ColorName + " " + item.DailyPrice);
+    }
 }
+else
+{
+    Console.WriteLine(result.Message);
+}
+
 Console.WriteLine("---------------------------");
 
 
