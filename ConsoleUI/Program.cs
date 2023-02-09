@@ -17,6 +17,7 @@ if (result.IsSuccess)
     {
         Console.WriteLine(item.BrandName + " " + item.Name + " " + item.ColorName + " " + item.DailyPrice);
     }
+    
 }
 else
 {

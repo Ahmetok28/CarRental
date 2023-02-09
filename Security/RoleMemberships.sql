@@ -1,6 +1,0 @@
-﻿ALTER SERVER ROLE [sysadmin] ADD MEMBER [MACHINA\Ahmet];
-
-
-GO
-ALTER SERVER ROLE [sysadmin] ADD MEMBER [NT SERVICE\SQLWriter];
-
