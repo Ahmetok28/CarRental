@@ -8,7 +8,7 @@ namespace Core.Utilities.Results
 {
     public class ErrorResult : Result
     {
-        public ErrorResult(bool isSuccess) : base(false)
+        public ErrorResult() : base(false)
         {
         }
 

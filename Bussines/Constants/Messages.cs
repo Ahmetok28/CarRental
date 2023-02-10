@@ -14,5 +14,6 @@ namespace Bussines.Constants
 
         public static string InvalidName = "Eklemeye Çalıştığınız Nesnenin İsmi Geçersiz";
 
+        public static string RentalDateisNull = "Arabanın kiralanabilmesi için arabanın teslim edilmesi gerekmektedir.";
     }
 }
