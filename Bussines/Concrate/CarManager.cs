@@ -41,7 +41,12 @@ namespace Bussines.Concrate
 
         public IDataResult<List<Car>> GetAll()
         {
-            return new SuccesDataResult<List<Car>>( _carDal.GetAll(c=>c.BrandId==7));
+            return new SuccesDataResult<List<Car>>( _carDal.GetAll());
+        }
+
+        public IDataResult<List<Car>> GetByBrandId(int id)
+        {
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
         public IDataResult<Car> GetById(int id)
