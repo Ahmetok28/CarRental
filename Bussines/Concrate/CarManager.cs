@@ -1,5 +1,7 @@
 ﻿using Bussines.Abstract;
 using Bussines.Constants;
+using Bussines.ValidationRules.FluentValidation;
+using Core.Aspect.Autofac;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Bussines.Concrate
 {
+   
     public class CarManager : ICarService
     {
         ICarDal _carDal;
@@ -21,6 +24,7 @@ namespace Bussines.Concrate
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             if (car.Name.Length<2)
@@ -61,6 +65,7 @@ namespace Bussines.Concrate
             return new SuccesDataResult<List<CarDetailDto>>( _carDal.GetCarDetail());
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             if (car.Name.Length < 2)

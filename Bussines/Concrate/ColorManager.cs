@@ -1,5 +1,7 @@
 ﻿using Bussines.Abstract;
 using Bussines.Constants;
+using Bussines.ValidationRules.FluentValidation;
+using Core.Aspect.Autofac;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -20,6 +22,7 @@ namespace Bussines.Concrate
             _colorDal = colorDal;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
             if (color.ColorName.Length < 2)
@@ -49,6 +52,7 @@ namespace Bussines.Concrate
             return new SuccesDataResult<Color>( _colorDal.Get(c=>c.Id == id));
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
             if (color.ColorName.Length < 2)

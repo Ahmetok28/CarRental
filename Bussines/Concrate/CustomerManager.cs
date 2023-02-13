@@ -1,4 +1,6 @@
 ﻿using Bussines.Abstract;
+using Bussines.ValidationRules.FluentValidation;
+using Core.Aspect.Autofac;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -19,6 +21,7 @@ namespace Bussines.Concrate
             _customerDal = customerDal;
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer); 
@@ -41,6 +44,7 @@ namespace Bussines.Concrate
             return new SuccesDataResult<Customer>(_customerDal.Get(p=>p.CustomerId== id));
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Update(Customer customer)
         {
             
