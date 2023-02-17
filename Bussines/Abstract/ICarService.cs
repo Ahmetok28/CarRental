@@ -1,5 +1,5 @@
 ﻿using Core.Utilities.Results;
-using Entities.Concrate;
+using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussines.Abstract
+namespace Business.Abstract
 {
     public interface ICarService
     {
-        IDataResult<Car> GetById(int id);
-        IDataResult<List<Car>> GetAll();
-        IDataResult<List<CarDetailDto>> GetCarDetail();
-        IDataResult<List<Car>> GetByBrandId(int id);
         IResult Add(Car car);
-        IResult Update(Car car);
         IResult Delete(Car car);
+        IResult Update(Car car);
+        IDataResult<List<Car>> GetAll();
+        IDataResult<Car> GetByCarId(int carId);
+        IDataResult<List<CarDetailDto>> GetCarDetails();
+
+        
     }
 }

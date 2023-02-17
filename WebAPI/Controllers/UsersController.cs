@@ -1,7 +1,11 @@
-﻿using Bussines.Abstract;
-using Entities.Concrate;
+﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -10,65 +14,61 @@ namespace WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         IUserService _userService;
-
         public UsersController(IUserService userService)
         {
             _userService = userService;
-        }
-
-        [HttpGet("getall")]
-        public IActionResult GetAll()
-        {
-            var result = _userService.GetAll();
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
-        {
-            var result = _userService.GetById(id);
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
         }
 
         [HttpPost("add")]
         public IActionResult Add(User user)
         {
             var result = _userService.Add(user);
-            if (result.IsSuccess)
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest();
         }
-
         [HttpPost("delete")]
         public IActionResult Delete(User user)
         {
             var result = _userService.Delete(user);
-            if (result.IsSuccess)
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest();
         }
-
         [HttpPost("update")]
         public IActionResult Update(User user)
         {
             var result = _userService.Update(user);
-            if (result.IsSuccess)
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest();
         }
+        [HttpGet("Getall")]
+        public IActionResult GetAll()
+        {
+            var result = _userService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+        [HttpGet("getbyuserid")]
+        public IActionResult GetByUserId(int userId)
+        {
+            var result = _userService.GetByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+
     }
 }

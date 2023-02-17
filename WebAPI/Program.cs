@@ -1,16 +1,14 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Bussines.Abstract;
-using Bussines.Concrate;
-using Bussines.DependencyResolvers.Autofac;
+using Business.DependencyResolvers.Autofac;
 using DataAccess.Abstract;
-using DataAccess.Concrate.EntityFramework;
+using DataAccess.Concrete.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
-    builder.RegisterModule(new AutofacBussinessModule());
+    builder.RegisterModule(new AutofacBusinessModule());
 });
 var services = builder.Services;
 // Add services to the container.

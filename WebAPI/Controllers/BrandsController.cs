@@ -1,7 +1,11 @@
-﻿using Bussines.Abstract;
-using Entities.Concrate;
+﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -15,60 +19,56 @@ namespace WebAPI.Controllers
         {
             _brandService = brandService;
         }
+
+        [HttpPost("Add")]
+        public IActionResult Add(Brand brand)
+        {
+            var result = _brandService.Add(brand);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+        [HttpPost("delete")]
+        public IActionResult Delete(Brand brand)
+        {
+            var result = _brandService.Delete(brand);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+        [HttpPost("update")]
+        public IActionResult Update(Brand brand)
+        {
+            var result = _brandService.Update(brand);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
             var result = _brandService.GetAll();
-            if (result.IsSuccess)
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest();
         }
-
-        [HttpGet("getbyid")]
-        public IActionResult Get(int id)
+        [HttpGet("Getbycarid")]
+        public IActionResult GetByCarId(int brandId)
         {
-            var result = _brandService.GetById(id);
-            if (result.IsSuccess)
+            var result = _brandService.GetByBrandId(brandId);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
-
-        }
-
-        [HttpPost("add")]
-        public IActionResult Add(Brand brand)
-        {
-            var result = _brandService.Add(brand);
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);      
-        }
-
-        [HttpPost("delete")]
-        public IActionResult Delete(Brand brand)
-        {
-            var result= _brandService.Delete(brand);
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpPost("update")]
-        public IActionResult Update(Brand brand)
-        {
-            var result=_brandService.Update(brand);
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            return BadRequest();
         }
     }
 }
