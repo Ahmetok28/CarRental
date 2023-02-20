@@ -2,6 +2,7 @@
 
 
 using Business.ValidationRules.FluentValidation;
+using Bussines.BusinessAspects.Autofac;
 using Bussines.Constants;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -28,6 +29,7 @@ namespace Business.Concrete
             _carDal = carDal;
             _brandService = brandService;
         }
+        [SecuredOperation("admin,car.add")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
