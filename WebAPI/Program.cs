@@ -1,6 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
+using Core.DependecyResolvers;
+using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
@@ -16,7 +18,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterModule(new AutofacBusinessModule());
 });
 
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -35,8 +37,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+});
 var services = builder.Services;
-ServiceTool.Create(services);
+
 // Add services to the container.
 
 services.AddControllers();

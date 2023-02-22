@@ -4,6 +4,8 @@
 using Business.ValidationRules.FluentValidation;
 using Bussines.BusinessAspects.Autofac;
 using Bussines.Constants;
+using Core.Aspect.Autofac.Caching;
+using Core.Aspect.Autofac.Performance;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -31,6 +33,8 @@ namespace Business.Concrete
         }
         [SecuredOperation("admin,car.add")]
         [ValidationAspect(typeof(CarValidator))]
+        [PerformanceAspect(5)]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             IResult result= BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId),CheckIfBrandLimitExceded());
@@ -43,6 +47,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.SuccesfullyAdded);
         }
 
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             IResult result = BusinessRules.Run(CheckCardIdExist(car.Id));
@@ -54,7 +59,9 @@ namespace Business.Concrete
             _carDal.Delete(car);
             return new SuccessResult(Messages.SuccesfullyDeleted);
         }
+
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             IResult result = BusinessRules.Run(CheckCardIdExist(car.Id));
@@ -67,18 +74,21 @@ namespace Business.Concrete
             return new SuccessResult(Messages.SuccesfullyUpdated);
         }
 
+        [CacheAspect]
         public IDataResult<Car> GetByCarId(int carId)
         {
             
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
 
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
+        [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());

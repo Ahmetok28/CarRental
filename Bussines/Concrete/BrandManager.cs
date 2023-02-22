@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Bussines.BusinessAspects.Autofac;
 using Bussines.Constants;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -55,6 +56,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.SuccesfullyUpdated);
         }
 
+        [SecuredOperation("")]
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
