@@ -56,7 +56,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.SuccesfullyUpdated);
         }
 
-        [SecuredOperation("")]
+        //[SecuredOperation("")]
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());

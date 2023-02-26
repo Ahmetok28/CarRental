@@ -82,6 +82,7 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
+        [SecuredOperation("admin")]
         public IDataResult<List<Car>> GetAll()
         {
 

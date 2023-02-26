@@ -1,5 +1,5 @@
-﻿using Core.CrossCuttingConcenrs.Caching.Microsoft;
-using Core.CrossCuttingConcenrs.Caching;
+﻿using Core.CrossCuttingConcerns.Caching.Microsoft;
+using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using System;
