@@ -31,7 +31,7 @@ namespace Business.Concrete
             _carDal = carDal;
             _brandService = brandService;
         }
-        [SecuredOperation("admin,car.add")]
+       // [SecuredOperation("admin,car.add")]
         [ValidationAspect(typeof(CarValidator))]
         [PerformanceAspect(5)]
         [CacheRemoveAspect("ICarService.Get")]
@@ -75,18 +75,32 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
-        public IDataResult<Car> GetByCarId(int carId)
+        public IDataResult<List<CarDetailDto>> GetByCarId(int carId)
         {
             
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.CarId == carId));
         }
 
+
+
         [CacheAspect]
-        [SecuredOperation("admin")]
+       // [SecuredOperation("admin")]
         public IDataResult<List<Car>> GetAll()
         {
 
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+        }
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarByBrand(int brandId)
+        {
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.BrandId==brandId));
+            return result;
+        }
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarByColor(int colorId)
+        {
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId));
+            return result;
         }
 
         [CacheAspect]

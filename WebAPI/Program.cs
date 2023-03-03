@@ -62,7 +62,15 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+
+app.UseCors(builder =>
+{
+    builder.WithOrigins("http://localhost:4200")
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
+
+app.UseStaticFiles();
 
 app.ConfigureCustomExceptionMiddleware();
 

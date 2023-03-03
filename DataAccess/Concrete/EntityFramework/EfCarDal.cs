@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,32 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, RentACarDbContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails()
+        //public List<CarDetailDto> GetCarDetails()
+        //{
+        //    using (RentACarDbContext context=new RentACarDbContext())
+        //    {
+        //        var result = from c in context.Cars
+        //                     join b in context.Brands
+        //                     on c.BrandId equals b.Id
+        //                     join co in context.Colors
+        //                     on c.ColorId equals co.Id
+        //                     select new CarDetailDto
+        //                     {
+
+        //                         BrandName = b.BrandName,
+        //                         ColorName = co.ColorName,
+        //                         ModelYear = c.ModelYear,
+        //                         DailyPrice = c.DailyPrice,                                
+        //                         ModelName = c.Name,                                
+        //                         Description = c.Description
+        //                     };
+        //        return result.ToList();
+        //    }
+        //}
+
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
-            using (RentACarDbContext context=new RentACarDbContext())
+            using (RentACarDbContext context = new RentACarDbContext())
             {
                 var result = from c in context.Cars
                              join b in context.Brands
@@ -24,16 +48,31 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.ColorId equals co.Id
                              select new CarDetailDto
                              {
-                                 
+
+                                 CarId=c.Id,
+                                 BrandId = b.Id,
+                                 ColorId = co.Id,
                                  BrandName = b.BrandName,
                                  ColorName = co.ColorName,
                                  ModelYear = c.ModelYear,
-                                 DailyPrice = c.DailyPrice,                                
-                                 ModelName = c.Name,                                
-                                 Description = c.Description
+                                 DailyPrice = c.DailyPrice,
+                                 ModelName = c.Name,
+                                 Description = c.Description,
+                                 ImagePath = (from img in context.CarImages
+                                              where img.CarId == c.Id
+                                              select img.ImagePath).FirstOrDefault()
                              };
-                return result.ToList();
+                return filter == null ? result.ToList()
+                                      : result.Where(filter).ToList();
+
+
+                //result.ToList();
             }
         }
+        //         using (TContext context=new TContext())
+        //            {
+        //                return filter==null ? context.Set<TEntity>().ToList()
+        //                                    : context.Set<TEntity>().Where(filter).ToList();
+        //}
     }
 }
