@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Bussines.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -14,18 +16,21 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
+        
         public RentalManager(IRentalDal rentalDal)
         {
             _rentalDal = rentalDal;
         }
         public IResult Add(Rental rental)
         {
-            if (rental.ReturnDate==null)
+            IResult result = BusinessRules.Run(CheckAvailability(rental.CarId,rental.RentDate));
+            if (result!=null)
             {
-                _rentalDal.Add(rental);
-                return new SuccessResult();
+                return result;
+                
             }
-            return new ErrorResult();
+            _rentalDal.Add(rental);
+            return new SuccessResult();
         }
 
         public IResult Delete(Rental rental)
@@ -43,6 +48,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
+        public IDataResult<List<Rental>> GetRentalByCarId(int carId)
+        {
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r=>r.CarId==carId));
+        }
 
         public IDataResult<Rental> GetByRentalId(int rentalId)
         {
@@ -52,8 +61,31 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
+        public IDataResult<Rental> GetByCarId(int carId)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.CarId == carId));
+        }
 
 
+        private IResult CheckAvailability(int carId, DateTime newRentDate)
+        {
+            var result =_rentalDal.GetAll(c => c.CarId == carId);
+            if (result!= null)
+            {
+                for (int i = 0; i < result.Count; i++)
+                {
+                    if (result[i].ReturnDate > newRentDate)
+                    {
+                        return new ErrorResult(Messages.CarIsNotAvailable);
+                    }
+                   
+                }
+                
+            }
+            return new SuccessResult();
 
+        }
+
+        
     }
 }

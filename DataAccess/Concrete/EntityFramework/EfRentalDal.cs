@@ -1,10 +1,13 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Entities;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +34,7 @@ namespace DataAccess.Concrete.EntityFramework
 
                              select new RentalDetailDto
                              {
+                                 RentalId=rent.Id,
                                  BrandId=brand.Id,
                                  CarId=car.Id,
                                  ColorId=color.Id,
@@ -40,10 +44,11 @@ namespace DataAccess.Concrete.EntityFramework
                                  UserName = user.FirstName+" "+user.LastName,
                                  RentDate = rent.RentDate,
                                  ReturnDate = rent.ReturnDate
-
                              };
                 return result.ToList();
             }
         }
+
+       
     }
 }

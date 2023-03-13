@@ -25,5 +25,12 @@ namespace Bussines.Constants
         public static string SuccessfulLogin = "Giriş Başrılı";
         public static string UserAlreadyExists = "Kullanıcı Zaten Mevcut";
         public static string AccessTokenCreated = "Token Oluşturuldu";
+
+        public static string CarIsNotAvailable = "Girdiğiz Tarihler Arasında Araç Başka Bir Müşteride Kirada ";
+
+        
+        public static string PayIsSuccessfull = "Ödeme Başarılı";
+        public static string CardInformationIsIncorrect = "Kart Bilgileri Hatalı";
+       
     }
 }   
