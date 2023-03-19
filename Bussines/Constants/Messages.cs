@@ -17,7 +17,7 @@ namespace Bussines.Constants
         public static string InvalidName = "Eklemeye Çalıştığınız Nesnenin İsmi Geçersiz";
 
         public static string RentalDateisNull = "Arabanın kiralanabilmesi için arabanın teslim edilmesi gerekmektedir.";
-        public static string AuthorizationDenied="yetkiniz yok";
+        public static string AuthorizationDenied="Hop Hemşerim Nereye";
 
         public static string UserRegistered = "Kayıt oldu";
         public static string UserNotFound = "Kullanıcı bulunamadı";
@@ -31,6 +31,9 @@ namespace Bussines.Constants
         
         public static string PayIsSuccessfull = "Ödeme Başarılı";
         public static string CardInformationIsIncorrect = "Kart Bilgileri Hatalı";
+
+        public static string ColorAlreadyExists = "Renk Zaten Mevcut";
+        public static string BrandNameAlreadyExist = "Marka Zaten Mevcut";
        
     }
 }   

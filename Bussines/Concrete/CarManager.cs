@@ -34,7 +34,7 @@ namespace Business.Concrete
        // [SecuredOperation("admin,car.add")]
         [ValidationAspect(typeof(CarValidator))]
         [PerformanceAspect(5)]
-        [CacheRemoveAspect("ICarService.Get")]
+        [CacheRemoveAspect("ICarService")]
         public IResult Add(Car car)
         {
             IResult result= BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId),CheckIfBrandLimitExceded());
@@ -75,9 +75,15 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
-        public IDataResult<List<CarDetailDto>> GetByCarId(int carId)
+        public IDataResult<List<Car>> GetByCarId(int carId)
         {
             
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.Id == carId));
+        }
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetByCarDetailId(int carId)
+        {
+
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.CarId == carId));
         }
 
@@ -132,12 +138,12 @@ namespace Business.Concrete
         }
         private IResult CheckCardIdExist(int carId)
         {
-            var result = _carDal.GetAll(c => c.Id == carId);
+            Car result = _carDal.Get(c => c.Id == carId);
             if (result != null)
             {
-                return new ErrorResult();
+                return  new SuccessResult();
             }
-            return new SuccessResult();
+            return new ErrorResult();
         }
     }
 }
