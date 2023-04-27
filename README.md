@@ -6,7 +6,8 @@ ArabaKiralamaProjesi
   <li> Proje için MSSQL Localdb veritabanı kullanıldı. </li>
   <li> Bu sistem yetkilendirme ve doğrulama işlemleri içermektedir. </li>
   <li> Kullanıcılar yalnızca yetkilendirildikleri işlemleri gerçekleştirebilirler. </li>
-  <li> JWT uygulamaları,Transaction, Cache, Validation and Performance aspectleri uygulandı. </li>
+  <li> JWT uygulamaları,Transaction, Cache, Validation ve Performance aspectleri uygulandı. </li>
+  <li> Tüm metodlar için geçerli bir loglama desteği eklendi </li>
   <li> Doğrulama için Fluent Validation desteği, IoC için Autofac desteği eklendi. </li>
   <li> Proje, araba, marka, renk, araba resimleri, kullanıcı, işlem talebi, kullanıcı işlem talepleri, müşteri, kredi kartı ve kiralama için CRUD işlemleri içerir. </li>
   <li> Araba kiralama belirli iş kurallarına göre gerçekleştirilir. </li>
@@ -30,6 +31,7 @@ Kullanılan Teknolojiler
   <li> Performance </li>
   <li> Transaction </li>
   <li> Validation </li>
+  <li> Logging </li>
   <li> Fluent Validation </li>
   <li> Cache Management </li>
   <li> JWT Authentication </li>
