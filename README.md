@@ -6,7 +6,7 @@ ArabaKiralamaProjesi
   <li> Proje için MSSQL Localdb veritabanı kullanıldı. </li>
   <li> Bu sistem yetkilendirme ve doğrulama işlemleri içermektedir. </li>
   <li> Kullanıcılar yalnızca yetkilendirildikleri işlemleri gerçekleştirebilirler. </li>
-  <li> JWT uygulamaları, İşlem, Önbellek, Doğrulama ve Performans yönleri uygulandı. </li>
+  <li> JWT uygulamaları,Transaction, Cache, Validation and Performance aspectleri uygulandı. </li>
   <li> Doğrulama için Fluent Validation desteği, IoC için Autofac desteği eklendi. </li>
   <li> Proje, araba, marka, renk, araba resimleri, kullanıcı, işlem talebi, kullanıcı işlem talepleri, müşteri, kredi kartı ve kiralama için CRUD işlemleri içerir. </li>
   <li> Araba kiralama belirli iş kurallarına göre gerçekleştirilir. </li>
@@ -17,25 +17,28 @@ Katmanlar
   <li> DataAccess : Projenin veritabanı ile bağlantı kurduğu katmandır. </li>
   <li> Entities: Veritabanındaki tablolarımız, projemizdeki nesneler olarak oluşturulmuştur. DTO nesnelerini de içerir. </li>
   <li> Business : Projemizin iş katmanıdır. Çeşitli iş kuralları; Veri kontrolleri, doğrulamalar ve yetkilendirme kontrolleri içerir. </li>
-  <li> WebAPI : Projemizin Restful API Katmanıdır. Bilinen yöntemler: Get, Post, Put, Delete. </li>
+  <li> WebAPI : Projemizin Restful API Katmanıdır. Kullanılan yöntemler: Get, Post, Put, Delete. </li>
 </ul>
 Kullanılan Teknolojiler
 <ul>
   <li> Restful API </li>
-  <li> Sonuç Türleri </li>
+  <li> Result Types </li>
   <li> Interceptor </li>
   <li> Autofac </li>
   <li> AOP, Aspect Oriented Programming </li>
-  <li> Önbellekleme </li>
-  <li> Performans </li>
-  <li> İşlem </li>
-  <li> Doğrulama </li>
+  <li> Caching </li>
+  <li> Performance </li>
+  <li> Transaction </li>
+  <li> Validation </li>
   <li> Fluent Validation </li>
-  <li> Önbellek Yönetimi </li>
-  <li> JWT Kimlik Doğrulama </li>
-  <li> Repository Tasarım Deseni </li>
-  <li> Kesintisiz Konular </li>
-  <li> Uzantılar </li>
-  <li> İşlem Talebi </li>
-  <li> İstisna Aracı </li>
-  <li> Hizmet Koleksiyonu </li>
+  <li> Cache Management </li>
+  <li> JWT Authentication </li>
+  <li> Repository Design Pattern </li>
+  <li> Cross Cutting Concerns </li>
+  <li> Extensions </li>
+  <li> Claim </li>
+  <li> Exception Middleware </li>
+  <li> Service Collection </li>
+  <li> Error Handling </li>
+  <li> Validation Error Details </li>
+ </ul>
