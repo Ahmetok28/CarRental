@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Bussines.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -13,13 +14,17 @@ namespace Business.Concrete
     public class CustomerManager : ICustomerService
     {
         ICustomerDal _customerDal;
-        public CustomerManager(ICustomerDal customerDal)
+        IFindeksService _findeksService;
+        public CustomerManager(ICustomerDal customerDal, IFindeksService findeksService)
         {
             _customerDal = customerDal;
+            _findeksService = findeksService;
         }
         public IResult Add(Customer customer)
         {
+            customer.FindeksPoint = _findeksService.CalculateFindeksScore().Data;
             _customerDal.Add(customer);
+           
             return new SuccessResult();
         }
 
@@ -44,6 +49,9 @@ namespace Business.Concrete
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CustomerId == customerId));
         }
 
-        
+        public IDataResult<Customer> GetByUserId(int userId)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == userId));
+        }
     }
 }

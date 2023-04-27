@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
-using Bussines.Constants;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -27,7 +26,7 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(CheckIfColorNameExist(color.ColorName));
             if (result!=null)
             {
-                return result;
+                return new ErrorResult();
             }
             _ColorDal.Add(color);
             return new SuccessResult();
@@ -59,7 +58,7 @@ namespace Business.Concrete
             var result = _ColorDal.GetAll(c => c.ColorName == colorName).Any();
             if (result)
             {
-                return new ErrorResult(Messages.ColorAlreadyExists);
+                return new ErrorResult();
             }
             return new SuccessResult();
         }

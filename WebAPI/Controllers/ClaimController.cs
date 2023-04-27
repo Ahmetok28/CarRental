@@ -1,30 +1,23 @@
-﻿using Business.Abstract;
+﻿using Bussines.Abstract;
 using Core.Entities.Concrete;
-using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ClaimController : ControllerBase
     {
-        private IUserService _userService;
-
-        public UsersController(IUserService userService)
+        private IClaimService _claimService;
+        public ClaimController(IClaimService claimService)
         {
-            _userService = userService;
+            _claimService = claimService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _userService.GetAll();
+            var result = _claimService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -33,10 +26,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getuserdetails")]
-        public IActionResult GetUserDetails()
+        [HttpGet("getbyclaimid")]
+        public IActionResult GetByClaimId(int id)
         {
-            var result = _userService.GetUserDetails();
+            var result = _claimService.GetByClaimId(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -45,10 +38,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getuserdetailbyid")]
-        public IActionResult GetUserDetailById(int id)
+        [HttpGet("getbyuserid")]
+        public IActionResult GetByUserId(int id)
         {
-            var result = _userService.GetUserDetailById(id);
+            var result = _claimService.GetByUserId(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -58,21 +51,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(User user)
+        public IActionResult Add(UserOperationClaim claim)
         {
-            var result = _userService.Add(user);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        [HttpPost("delete")]
-        public IActionResult Delete(User user)
-        {
-            var result = _userService.Delete(user);
+            var result = _claimService.Add(claim);
             if (result.Success)
             {
                 return Ok(result);
@@ -82,9 +63,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserOperationClaim claim)
         {
-            var result = _userService.Update(user);
+            var result = _claimService.Update(claim);
             if (result.Success)
             {
                 return Ok(result);
@@ -92,5 +73,18 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+
+        [HttpPost("delete")]
+        public IActionResult Delete(UserOperationClaim claim)
+        {
+            var result = _claimService.Delete(claim);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
     }
 }

@@ -37,6 +37,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  DailyPrice = c.DailyPrice,
                                  ModelName = c.Name,
                                  Description = c.Description,
+                                 MinFindeksPoint= c.MinFindeksPoint,
                                  ImagePath = (from img in context.CarImages
                                               where img.CarId == c.Id
                                               select img.ImagePath).FirstOrDefault()

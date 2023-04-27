@@ -47,10 +47,10 @@ namespace Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
-            IResult result = BusinessRules.Run(CheckIfBrandNameExistDiffrentId(brand.BrandName,brand.Id),CheckBrandExist(brand.Id));
+            IResult result = BusinessRules.Run(CheckIfBrandNameExist(brand.BrandName),CheckBrandExist(brand.Id));
             if (result != null)
             {
-                return result;
+                return new ErrorResult();
             }
             _brandDal.Update(brand);
             return new SuccessResult(Messages.SuccesfullyUpdated);
@@ -72,21 +72,12 @@ namespace Business.Concrete
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == brandId));
         }
 
-        private IResult CheckIfBrandNameExistDiffrentId(string brandName , int brandId)
-        {
-            var result = _brandDal.GetAll(b => b.BrandName == brandName && b.Id != brandId).Any();
-            if (result==true)
-            {
-                return new ErrorResult(Messages.BrandNameAlreadyExist);
-            }
-            return new SuccessResult();
-        }
         private IResult CheckIfBrandNameExist(string brandName)
         {
-            var result = _brandDal.GetAll(b => b.BrandName == brandName ).Any();
-            if (result == true)
+            var result = _brandDal.GetAll(b => b.BrandName == brandName).Any();
+            if (result==true)
             {
-                return new ErrorResult(Messages.BrandNameAlreadyExist);
+                return new ErrorResult();
             }
             return new SuccessResult();
         }

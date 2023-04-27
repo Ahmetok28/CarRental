@@ -43,7 +43,14 @@ namespace Business.Concrete
             _rentalDal.Update(rental);
             return new SuccessResult();
         }
-
+        public IResult CheckCarStatus(Rental rental)
+        {
+            if (_rentalDal.CheckCarStatus(rental.CarId, rental.RentDate, rental.ReturnDate))
+            {
+                return new SuccessResult(Messages.RentalDateOk);
+            }
+            return new ErrorResult(Messages.RentalReturnDateError);
+        }
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
@@ -53,9 +60,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r=>r.CarId==carId));
         }
 
-        public IDataResult<Rental> GetByRentalId(int rentalId)
+        public IDataResult<List<RentalDetailDto>> GetByCustomerId(int customerId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == rentalId));
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(r => r.CustomerId == customerId));
         }
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
